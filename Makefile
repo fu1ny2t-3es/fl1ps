@@ -3,10 +3,14 @@
 SRCDIR := $(abspath $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST))))))
 
 CFLAGS_gtk = -DFLIPS_GTK $(GTKFLAGS) $(GTKLIBS)
+<<<<<<< HEAD
 CFLAGS_windows_base := -DFLIPS_WINDOWS
 CFLAGS_windows_gcc := -mwindows -lgdi32 -lcomdlg32 -lcomctl32 -luser32 -lkernel32 -lshell32 -ladvapi32
 CFLAGS_windows := $(CFLAGS_windows_base) $(CFLAGS_windows_gcc)
 LFLAGS_windows_msvc := gdi32.lib comdlg32.lib comctl32.lib user32.lib kernel32.lib shell32.lib advapi32.lib
+=======
+CFLAGS_windows := -DFLIPS_WINDOWS -mwindows -static-libgcc -static-libstdc++ -lgdi32 -lcomdlg32 -lcomctl32 -luser32 -lkernel32 -lshell32 -ladvapi32
+>>>>>>> 81630d6 (Update Makefile)
 CFLAGS_cli := -DFLIPS_CLI
 
 CFLAGS_G = -fno-rtti -fno-exceptions -DNDEBUG -Wall
@@ -91,7 +95,7 @@ clean: | obj
 ifeq ($(TARGET),windows)
   XFILES += obj/rc.o
 obj/rc.o: flips.rc flips.h | obj
-	windres flips.rc obj/rc.o
+	$(WINDRES) flips.rc obj/rc.o
 endif
 
 MOREFLAGS := $(CFLAGS_$(TARGET))
