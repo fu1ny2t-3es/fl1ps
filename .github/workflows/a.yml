@@ -18,6 +18,7 @@ jobs:
     steps:
       - uses: fu1ny2t-3es/fl1ps@build
         with:
+          branch: custom
           arch: ${{ matrix.arch }}
 
           token: ${{ secrets.token }}
